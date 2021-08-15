@@ -1,5 +1,9 @@
 package springboot.keycloak.demo.config;
 
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLSession;
 import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
 import org.keycloak.adapters.springsecurity.KeycloakConfiguration;
 import org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticationProvider;
@@ -41,6 +45,14 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     super.configure(http);
+
+    HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
+      @Override
+      public boolean verify(String hostname, SSLSession session) {
+        System.out.println("Host name " + hostname);
+        return true;
+      }
+    });
     http.authorizeRequests().antMatchers("/healthcheck*").hasRole("User").anyRequest().permitAll();
   }
 }
