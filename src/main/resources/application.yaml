@@ -4,7 +4,7 @@ server:
 keycloak:
   resource: springboot-keycloak-client
   realm: springboot-keycloak
-  auth-server-url: http://localhost:8080/auth
+  auth-server-url: https://localhost:8443/auth
   public-client: true
   bearer-only: true
-  
+  ssl-required: false
