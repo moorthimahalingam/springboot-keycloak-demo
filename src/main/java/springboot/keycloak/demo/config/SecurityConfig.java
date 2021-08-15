@@ -49,7 +49,6 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
       @Override
       public boolean verify(String hostname, SSLSession session) {
-        System.out.println("Host name " + hostname);
         return true;
       }
     });
